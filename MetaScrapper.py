@@ -12,7 +12,7 @@ par = argparse.ArgumentParser()
 
 # Arguments
 par.add_argument("-fp", "--folderPath", dest="fp", required=True, help="path\\to\\the\\folder where the target images are.")
-par.add_argument("-o", "--outputType", dest="ot", required=True, help="Determines what information is given. \n 1: Gives GPS coordsnates and additonal file date. \n 2: Gives just a list of GPS coordinates. \n 3: Gives GPS cooridnates with a file name.")
+par.add_argument("-o", "--outputType", dest="ot", required=True, help="Determines what information is given. \n 1: Gives GPS coordinates and additional file date. \n 2: Gives just a list of GPS coordinates. \n 3: Gives GPS coordinates with a file name.")
 
 # Parse the Arguments
 args = par.parse_args()
