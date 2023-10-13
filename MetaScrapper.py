@@ -37,31 +37,39 @@ def GetGPS(targetImage):
     global gpsLat
     global gpsLong
     global gpsAlt
+    global gpsDead
+    gpsDead = 0
     gpsDict = gpsphoto.getGPSData(targetImage)
 
 #Attempts to find the Latitude of the picture.
     try: 
-        if "Latitude" in gpsDict:
+        if "Latitude" in gpsDict and not None:
             gpsLat = gpsDict["Latitude"]
-    except:
-        gpsLat = "N/A Lat"
-        print("Latitude Not Found in " + targetImage)
+        else:
+            gpsDict["Latitude"] = 0.0
+            print("Latitude Not Found in " + targetImage)
+    finally:
+        print("Latitude Finalized in " + targetImage +"\n")
 
 #Attempts to find the Longitude of the picture.
     try:
-        if "Longitude" in gpsDict:
+        if "Longitude" in gpsDict and not None:
             gpsLong = gpsDict["Longitude"]
-    except:
-        gpsLong = "N/A Long"
-        print("Longitude Not Found in " + targetImage)
+        else:
+            gpsDict["Longitude"] = 0.0
+            print("Longitude Not Found in " + targetImage)
+    finally:
+        print("Longitude Finalized in " + targetImage +"\n")
 
 #Attempts to find  the Altitude of the picture.
     try:
-        if "Altitude" in gpsDict:
+        if "Altitude" in gpsDict and not None:
             gpsAlt = gpsDict["Altitude"]
-    except:
-        gpsAlt = "N/A Alt"
-        print("ALtitude Not Found in " + targetImage)
+        else:
+            gpsDict["Altitude"] = 0.0
+            print("Altitude Not Found in " + targetImage)
+    finally:
+        print("Altitude Finalized in " + targetImage +"\n")
 
     return gpsDict
 
@@ -85,21 +93,18 @@ def GetMisc(targetImage, i):
 
     #Finds the Datetime stamp, if there is data for it. 
     if "DateTime" in metaDict:
-        #global dateTime
         dateTime = metaDict["DateTime"]
     else:
         dateTime = "-"
 
     #Finds the Make of the picture, if there is data for it.
     if "Make" in metaDict:
-        #global metaMake
         metaMake = metaDict["Make"]
     else:
         metaMake = "-"
 
     #Finds the Model of the picture, if there is data for it.
     if "Model" in metaDict:
-        #global metaModel
         metaModel = metaDict["Model"]
     else:
         metaModel = "-"
@@ -164,13 +169,13 @@ def GPSandNameJSON():
 def Output(outputType):
     match outputType:
         case 1:
-            print("Adding to too FullDetail file")
+            print("Adding to too FullDetail file\n")
             FullDetailJSON()
         case 2:
-            print("Adding to GPSCoords file")
+            print("Adding to GPSCoords file\n")
             GPSOnlyJSON()
         case 3:
-            print("Adding to GPSandName file")
+            print("Adding to GPSandName file\n")
             GPSandNameJSON()
 
 # Executes all other functions, with conditional outcomes depending on the given arguments.
@@ -187,5 +192,4 @@ def Run():
         Output(outputType)
     
     print("Finished!")
-
 Run()
