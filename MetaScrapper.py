@@ -39,27 +39,30 @@ def GetGPS(targetImage):
     global gpsAlt
     gpsDict = gpsphoto.getGPSData(targetImage)
 
-    try:
-        #Finds the Latitude of the picture, if that data is there.
+#Attempts to find the Latitude of the picture.
+    try: 
         if "Latitude" in gpsDict:
             gpsLat = gpsDict["Latitude"]
-        else:
-            gpsLat = "N/A Lat"
-    
-        #Finds the Longitude of the picture, if that data is there.
+    except:
+        gpsLat = "N/A Lat"
+        print("Latitude Not Found in " + targetImage)
+
+#Attempts to find the Longitude of the picture.
+    try:
         if "Longitude" in gpsDict:
             gpsLong = gpsDict["Longitude"]
-        else:
-            gpsLong = "N/A Long"
+    except:
+        gpsLong = "N/A Long"
+        print("Longitude Not Found in " + targetImage)
 
-        #Fidns the Altitude of the picture, if that data is there.
+#Attempts to find  the Altitude of the picture.
+    try:
         if "Altitude" in gpsDict:
             gpsAlt = gpsDict["Altitude"]
-        else:
-            gpsAlt = "N/A Alt"
-
     except:
-        print("No GPS Data Found")
+        gpsAlt = "N/A Alt"
+        print("ALtitude Not Found in " + targetImage)
+
     return gpsDict
 
 
